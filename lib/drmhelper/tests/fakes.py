@@ -25,15 +25,16 @@ SYSTEMS = [
         'platforms': ['System.Platform.Linux'],
         'machine': 'x86_64',
         'expected_system': 'Linux',
-        'expected_arch': 'x86_64',
+        'expected_arch': 'x64',
     },
     # Generic Windows
     {
         'system': 'Windows',
         'platforms': ['System.Platform.Windows'],
-        'machine': 'x86_64',
+        'machine': 'AMD64',
+        'arch': '32bit',
         'expected_system': 'Windows',
-        'expected_arch': 'x86_64',
+        'expected_arch': 'x86',
     },
     # Generic Mac OS X
     {
@@ -41,7 +42,7 @@ SYSTEMS = [
         'platforms': ['System.Platform.OSX'],
         'machine': 'x86_64',
         'expected_system': 'Darwin',
-        'expected_arch': 'x86_64',
+        'expected_arch': 'x64',
     },
     # Raspberry Pi
     {
@@ -61,6 +62,15 @@ SYSTEMS = [
         'expected_system': 'Android',
         'expected_arch': 'arm',
     },
+    # Xbox One
+    {
+        'system': 'Windows',
+        'platforms': ['System.Platform.Windows'],
+        'machine': '',
+        'arch': '64bit',
+        'expected_system': 'Windows',
+        'expected_arch': 'x64',
+    },
 ]
 
 
@@ -71,8 +81,8 @@ ARCHES = [
     ('arm', 'arm'),
     ('armv7l', 'arm'),
     ('armv8', 'aarch64'),
-    ('AMD64', 'x86_64'),
-    ('x86_64', 'x86_64'),
+    ('AMD64', 'x64'),
+    ('x86_64', 'x64'),
     ('x86', 'x86'),
     ('i386', 'x86'),
     ('i686', 'x86'),
