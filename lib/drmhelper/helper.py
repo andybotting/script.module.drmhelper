@@ -38,10 +38,16 @@ class DRMHelper(object):
         if xbmc.getCondVisibility('System.Platform.Android'):
             self.system = 'Android'
 
+
         return self.system
 
     def _is_windows():
         return self._get_system() == 'Windows'
+
+    def _is_windows_uwp():
+        # Look for this app key in the path, which is the only reliable
+        # way we can tell if it's a special UWP build
+        return '4n2hpmxwrvr6p' in xbmc.translatePath('special://xbmc')
 
     def _is_mac():
         return self._get_system() == 'Darwin'
@@ -65,8 +71,10 @@ class DRMHelper(object):
         if platform.system() == 'Windows':
             try:
                 arch = config.WINDOWS_BITNESS.get(platform.architecture()[0])
-            except ImportError:  # No module named _subprocess on Xbox One
-                arch = 'XboxOne'
+            except ImportError:
+                # No module named _subprocess on Xbox One, so this call fails
+                # so we assume it'll always be x64 in this case.
+                arch = 'x64'
 
         self.arch = arch
         return self.arch
@@ -76,7 +84,7 @@ class DRMHelper(object):
         """Return a tuple for our system/arch
 
         For example:
-            ('Windows', 'x86_64')
+            ('Windows', 'x64')
             ('Linux', 'arm')
             ('Android', 'aarch64')
         """
