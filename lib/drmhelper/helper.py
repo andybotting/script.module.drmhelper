@@ -41,7 +41,7 @@ class DRMHelper(object):
 
         return self.system
 
-    def _is_windows():
+    def _is_windows(self):
         return self._get_system() == 'Windows'
 
     def _is_windows_uwp():
@@ -49,13 +49,13 @@ class DRMHelper(object):
         # way we can tell if it's a special UWP build
         return '4n2hpmxwrvr6p' in xbmc.translatePath('special://xbmc')
 
-    def _is_mac():
+    def _is_mac(self):
         return self._get_system() == 'Darwin'
 
-    def _is_linux():
+    def _is_linux(self):
         return self._get_system() == 'Linux'
 
-    def _is_android():
+    def _is_android(self):
         return self._get_system() == 'Android'
 
     def _get_arch(self):
