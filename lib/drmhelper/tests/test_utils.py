@@ -1,10 +1,10 @@
 from drmhelper import utils
 
+import fakes
+
 import mock
 
 import testtools
-
-import fakes
 
 import xbmc
 

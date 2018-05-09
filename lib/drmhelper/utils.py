@@ -1,9 +1,12 @@
 import re
 
+from drmhelper import config
+
 import xbmc
+
 import xbmcaddon
 
-from drmhelper import config
+import xbmcgui
 
 
 def get_info_label(label, attempts=0):
@@ -93,3 +96,20 @@ def get_kodi_build_date():
     if match:
         return match.group(0)
     return match
+
+
+def get_addon_string():
+    return '{0} {1}'.format(get_addon_name(), get_addon_version())
+
+
+def dialog(*args):
+    xbmcgui.Dialog().ok(*args)
+    msg = '. '.join(list(args))
+    log('DIALOG: {0}'.format(msg))
+
+
+def dialog_yn(*args, **kwargs):
+    val = xbmcgui.Dialog().yesno(*args)
+    msg = '. '.join(list(args))
+    log('DIALOG Y/N: {0}. Answer: {1}'.format(msg, bool(val)))
+    return val
