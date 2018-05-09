@@ -136,9 +136,8 @@ IA_ENABLED = {
     'result': {
         'addon': {
             'addonid': 'inputstream.adaptive',
-            'enabled': True, 
+            'enabled': True,
             'type': 'kodi.inputstream'
         }
     }
 }
-
