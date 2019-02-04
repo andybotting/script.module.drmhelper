@@ -44,8 +44,8 @@ class UtilsTests(testtools.TestCase):
     def test_get_kodi_build(self):
         val = 'foo'
         with mock.patch.object(utils, 'get_info_label', return_value=val):
-                result = utils.get_kodi_build()
-                self.assertEqual(result, val)
+            result = utils.get_kodi_build()
+            self.assertEqual(result, val)
 
     def test_get_kodi_version(self):
         for b in fakes.KODI_BUILDS:

@@ -7,11 +7,10 @@ import zipfile
 from distutils.version import LooseVersion
 from pipes import quote
 
-import config
+from drmhelper import config
+from drmhelper import utils
 
 import requests
-
-import utils
 
 import xbmc
 
@@ -60,6 +59,8 @@ class DRMHelper(object):
     def _is_linux(self):
         return self._get_system() == 'Linux'
 
+    # TODO(andy): Make this more generic to cover other cases where we allow
+    # manual install, like Arch
     @classmethod
     def _is_libreelec(cls):
         return True

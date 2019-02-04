@@ -92,7 +92,7 @@ def get_kodi_build_date():
         return None
 
     # Extract date
-    match = re.search('20\d{6}', build_string)
+    match = re.search(r'20\d{6}', build_string)
     if match:
         return match.group(0)
     return match

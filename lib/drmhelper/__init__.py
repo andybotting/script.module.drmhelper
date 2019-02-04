@@ -1,7 +1,7 @@
 """
 This contains the legacy entrypoints for DRM Helper
 """
-import helper
+from drmhelper import helper
 
 
 def check_inputstream(drm=True):
