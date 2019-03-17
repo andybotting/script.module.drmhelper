@@ -141,19 +141,6 @@ class DRMHelper(object):
         kodi_ver = utils.get_kodi_major_version()
         return config.MIN_IA_VERSION.get(kodi_ver)
 
-    def _should_update_ia(self, addon):
-        if not self._is_ia_current(addon):
-            if utils.dialog_yn(
-                'inputstream.adaptive version lower than required',
-                'inputstream.adaptive version does not meet requirements.',
-                'Would you like to download the zip for the required '
-                    'version from a direct link and reinstall?'):
-                return self._get_ia_direct(update=True)
-            else:
-                utils.log('inputstream.adaptive version lower than required, '
-                          'aborting..')
-        return False
-
     def _is_ia_current(self, addon, latest=False):
         """
         Check if inputstream.adaptive addon meets the minimum version
@@ -432,7 +419,7 @@ class DRMHelper(object):
 
         plat = self._get_platform()
         current_cdm_ver = requests.get(config.CMD_CURRENT_VERSION_URL).text
-        url = config.WIDEVINECDM_URL[plat].format(current_cdm_ver)
+        url = config.WIDEVINE_CDM_URL[plat].format(current_cdm_ver)
         filename = url.split('/')[-1]
         wv_cdm_fn = self._get_wvcdm_filename()
 
