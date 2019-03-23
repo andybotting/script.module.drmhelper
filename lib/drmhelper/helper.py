@@ -3,6 +3,7 @@ import os
 import platform
 import posixpath
 import zipfile
+
 from distutils.version import LooseVersion
 from pipes import quote
 
@@ -12,9 +13,7 @@ from drmhelper import utils
 import requests
 
 import xbmc
-
 import xbmcaddon
-
 import xbmcgui
 
 
@@ -142,7 +141,8 @@ class DRMHelper(object):
         return config.MIN_IA_VERSION.get(kodi_ver)
 
     def _is_ia_current(self, addon, latest=False):
-        """
+        """Check if InputStream Adaptive is a current enough version
+
         Check if inputstream.adaptive addon meets the minimum version
         requirements.
         latest -- checks if addon is equal to the latest available compiled
@@ -298,11 +298,12 @@ class DRMHelper(object):
         return True
 
     def check_inputstream(self, drm=True):
-        """
+        """Check InputStream Adaptive is installed and ready
+
         Main function call to check all components required are available for
         DRM playback before setting the resolved URL in Kodi.
         drm -- set to false if you just want to check for inputstream.adaptive
-            and not widevine components eg. HLS playback
+        and not widevine components eg. HLS playback
         """
         # DRM not supported
         if drm and not self._is_wv_drm_supported():
@@ -363,7 +364,7 @@ class DRMHelper(object):
                 '{0} not found in any expected location.'.format(cdm_fn),
                 'Do you want to attempt downloading the missing '
                     'Widevine CDM module to your system for DRM support?'):
-                self._get_wvcdm(cdm_paths)
+                self._get_wvcdm(cdm_paths[0])  # Use first path
             else:
                 # TODO(andy): Ask to never attempt again
                 return False
@@ -382,9 +383,7 @@ class DRMHelper(object):
         return True
 
     def _unzip_cdm(self, zpath, cdm_path):
-        """
-        extract windows widevinecdm.dll from downloaded zip
-        """
+        """Extract windows widevinecdm.dll from downloaded zip"""
         cdm_fn = posixpath.join(cdm_path, self._get_wvcdm_filename())
         utils.log('unzipping widevinecdm.dll from {0} to {1}'
                   ''.format(zpath, cdm_fn))
@@ -395,7 +394,8 @@ class DRMHelper(object):
         os.remove(zpath)
 
     def _get_wvcdm(self, cdm_path=None):
-        """
+        """Get the Widevine CDM library
+
         Win/Mac: download Chrome extension blob ~2MB and extract
         widevinecdm.dll
         Linux: download Chrome package ~50MB and extract libwidevinecdm.so
